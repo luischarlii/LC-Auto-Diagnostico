@@ -1,0 +1,30 @@
+
+name: LC Auto Diagnostico - Revision
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    name: Revisar aplicacion Flutter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Obtener dependencias
+        run: flutter pub get
+
+      - name: Analizar codigo
+        run: flutter analyze
